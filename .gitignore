@@ -1,0 +1,14 @@
+
+# Carpetas generadas por .NET
+bin/
+obj/
+
+# Archivos temporales de Visual Studio
+.vs/
+
+# Archivos de usuario de Visual Studio
+*.user
+*.suo
+
+# Archivos de compilación
+*.pdb

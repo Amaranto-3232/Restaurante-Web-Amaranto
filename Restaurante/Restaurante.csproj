@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+    <Folder Include="Views\cliente\" />
+    <Folder Include="Views\Empleados\" />
+    <Folder Include="Views\Mesas\" />
+    <Folder Include="Views\DetallesPedido\" />
+    <Folder Include="Views\Categorias\" />
+    <Folder Include="Views\Facturas\" />
+    <Folder Include="Views\Reportes\" />
+    <Folder Include="Views\Productos\" />
+    <Folder Include="Views\Pedidos\" />
+  </ItemGroup>
+
+</Project>
