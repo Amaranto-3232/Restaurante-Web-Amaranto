@@ -1,0 +1,32 @@
+﻿@model Restaurante.Models.Producto
+
+@{
+    ViewData["Title"] = "Detalles del producto";
+}
+
+<h1>Detalles del producto</h1>
+<hr />
+
+<dl class="row">
+    <dt class="col-sm-3">ID</dt>
+    <dd class="col-sm-9">@Model.ID_Producto</dd>
+
+    <dt class="col-sm-3">Nombre</dt>
+    <dd class="col-sm-9">@Model.Nombre</dd>
+
+    <dt class="col-sm-3">Descripción</dt>
+    <dd class="col-sm-9">@(Model.Descripcion ?? "Sin descripción")</dd>
+
+    <dt class="col-sm-3">Precio</dt>
+    <dd class="col-sm-9">Bs @Model.Precio.ToString("N2")</dd>
+
+    <dt class="col-sm-3">Categoría</dt>
+    <dd class="col-sm-9">@(Model.Categoria?.Nombre ?? "Sin categoría")</dd>
+
+    <dt class="col-sm-3">Estado</dt>
+    <dd class="col-sm-9">@(Model.Estado ? "Activo" : "Inactivo")</dd>
+</dl>
+
+<a asp-action="Edit" asp-route-id="@Model.ID_Producto"
+   class="btn btn-warning">Editar</a>
+<a asp-action="Index" class="btn btn-secondary">Volver</a>

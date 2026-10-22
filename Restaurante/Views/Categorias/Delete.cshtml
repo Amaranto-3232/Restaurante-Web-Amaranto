@@ -1,0 +1,99 @@
+﻿@model Restaurante.Models.Categoria
+
+@{
+    ViewData["Title"] = "Eliminar categoría";
+}
+
+<div class="container-fluid">
+
+    <div class="mb-4">
+        <a asp-action="Index" class="text-decoration-none text-muted">
+            <i class="bi bi-arrow-left me-1"></i>
+            Volver a categorías
+        </a>
+
+        <h1 class="fw-bold mt-3 mb-1">Eliminar categoría</h1>
+        <p class="text-muted mb-0">
+            Revisa la información antes de confirmar la eliminación.
+        </p>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+
+            <div class="alert alert-warning" role="alert">
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                ¿Estás seguro de que deseas eliminar esta categoría?
+                Esta acción no se puede deshacer.
+            </div>
+
+            <h5 class="fw-semibold mb-4">Información de la categoría</h5>
+
+            <dl class="row mb-4">
+
+                <dt class="col-sm-3 text-muted">
+                    ID de categoría
+                </dt>
+                <dd class="col-sm-9">
+                    @Model.ID_Categoria
+                </dd>
+
+                <dt class="col-sm-3 text-muted">
+                    Nombre
+                </dt>
+                <dd class="col-sm-9 fw-semibold">
+                    @Model.Nombre
+                </dd>
+
+                <dt class="col-sm-3 text-muted">
+                    Descripción
+                </dt>
+                <dd class="col-sm-9">
+                    @(string.IsNullOrWhiteSpace(Model.Descripcion)
+                        ? "Sin descripción"
+                        : Model.Descripcion)
+                </dd>
+
+                <dt class="col-sm-3 text-muted">
+                    Estado
+                </dt>
+                <dd class="col-sm-9">
+                    @if (Model.Estado)
+                    {
+                        <span class="badge bg-success">Activa</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Inactiva</span>
+                    }
+                </dd>
+
+            </dl>
+
+            <hr />
+
+            <form asp-action="Delete"
+                  asp-route-id="@Model.ID_Categoria"
+                  method="post">
+
+                <input type="hidden" asp-for="ID_Categoria" />
+
+                <div class="d-flex justify-content-end gap-2">
+                    <a asp-action="Index"
+                       class="btn btn-outline-secondary">
+                        Cancelar
+                    </a>
+
+                    <button type="submit"
+                            class="btn btn-danger fw-semibold">
+                        <i class="bi bi-trash me-1"></i>
+                        Confirmar eliminación
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,29 @@
+﻿@model Restaurante.Models.Producto
+
+@{
+    ViewData["Title"] = "Eliminar producto";
+}
+
+<h1>Eliminar producto</h1>
+
+<div class="alert alert-danger">
+    ¿Estás seguro de que deseas eliminar este producto?
+</div>
+
+<dl class="row">
+    <dt class="col-sm-3">Nombre</dt>
+    <dd class="col-sm-9">@Model.Nombre</dd>
+
+    <dt class="col-sm-3">Categoría</dt>
+    <dd class="col-sm-9">@(Model.Categoria?.Nombre ?? "Sin categoría")</dd>
+
+    <dt class="col-sm-3">Precio</dt>
+    <dd class="col-sm-9">Bs @Model.Precio.ToString("N2")</dd>
+</dl>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="ID_Producto" />
+
+    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

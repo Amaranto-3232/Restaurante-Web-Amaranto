@@ -1,47 +1,104 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Restaurante</title>
-    <script type="importmap"></script>
+    <title>@ViewData["Title"] - Casa Oliva</title>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Restaurante.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Restaurante</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+    <div class="admin-layout">
+
+        <aside class="sidebar">
+            <a asp-controller="Home" asp-action="Index" class="sidebar-brand">
+                <span class="brand-symbol">C</span>
+                <span>
+                    <strong>CASA OLIVA</strong>
+                    <small>GESTIÓN RESTAURANTE</small>
+                </span>
+            </a>
+
+            <div class="sidebar-section">MENÚ PRINCIPAL</div>
+
+            <nav class="sidebar-nav">
+                <a asp-controller="Home" asp-action="Index"
+                   class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "selected" : "")">
+                    <span class="nav-icon">⌂</span> Dashboard
+                </a>
+
+                <a asp-controller="Pedidos" asp-action="Index" class="sidebar-link">
+                    <span class="nav-icon">▤</span> Pedidos
+                </a>
+
+                <a asp-controller="Productos" asp-action="Index" class="sidebar-link">
+                    <span class="nav-icon">♨</span> Productos
+                </a>
+
+                <a asp-controller="Categorias" asp-action="Index" class="sidebar-link">
+                    <span class="nav-icon">▦</span> Categorías
+                </a>
+
+                <a asp-controller="Mesas" asp-action="Index" class="sidebar-link">
+                    <span class="nav-icon">▧</span> Mesas
+                </a>
+
+                <div class="sidebar-section">GESTIÓN</div>
+
+                <a asp-controller="Clientes" asp-action="Index" class="sidebar-link">
+                    <span class="nav-icon">♙</span> Clientes
+                </a>
+
+                <a asp-controller="Empleados" asp-action="Index" class="sidebar-link">
+                    <span class="nav-icon">♧</span> Empleados
+                </a>
+
+                <a asp-controller="Facturas" asp-action="Index" class="sidebar-link">
+                    <span class="nav-icon">▣</span> Facturas
+                </a>
+
+                <a asp-controller="Reportes" asp-action="Index" class="sidebar-link">
+                    <span class="nav-icon">▥</span> Reportes
+                </a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="sidebar-status"></div>
+                <div>
+                    <strong>Sistema interno</strong>
+                    <small>Administración</small>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        </aside>
+
+        <div class="admin-main">
+            <header class="topbar">
+                <div>
+                    <div class="topbar-title">Panel de administración</div>
+                    <div class="topbar-subtitle">Control y gestión del restaurante</div>
+                </div>
+
+                <div class="topbar-user">
+                    <span class="user-avatar">A</span>
+                    <div>
+                        <strong>Administrador</strong>
+                        <small>Gestión interna</small>
+                    </div>
+                </div>
+            </header>
+
+            <main class="admin-content">
+                @RenderBody()
+            </main>
+
+            <footer class="admin-footer">
+                Casa Oliva · Sistema de gestión del restaurante
+            </footer>
+        </div>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - Restaurante - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
