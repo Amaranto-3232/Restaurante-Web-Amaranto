@@ -1,0 +1,61 @@
+﻿@model Restaurante.Models.Cliente
+
+@{
+    ViewData["Title"] = "Eliminar cliente";
+}
+
+<div class="mb-4">
+    <h1 class="fw-bold">Eliminar cliente</h1>
+    <p class="text-muted">
+        Revisa los datos antes de confirmar.
+    </p>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white py-3">
+        <h5 class="mb-0">Confirmación de eliminación</h5>
+    </div>
+
+    <div class="card-body p-4">
+        <div class="alert alert-warning" role="alert">
+            ¿Quieres eliminar a este cliente de la lista?
+        </div>
+
+        <dl class="row mb-4">
+            <dt class="col-sm-3">ID</dt>
+            <dd class="col-sm-9">@Model.Id</dd>
+
+            <dt class="col-sm-3">Nombre</dt>
+            <dd class="col-sm-9">@Model.Nombre</dd>
+
+            <dt class="col-sm-3">Apellido</dt>
+            <dd class="col-sm-9">@Model.Apellido</dd>
+
+            <dt class="col-sm-3">Teléfono</dt>
+            <dd class="col-sm-9">@Model.Telefono</dd>
+
+            <dt class="col-sm-3">Correo</dt>
+            <dd class="col-sm-9 text-break">@Model.Correo</dd>
+        </dl>
+
+        <form method="post"
+              action="@Url.Action("Eliminar", "Clientes",
+                                     new { id = Model.Id })">
+
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" name="id" value="@Model.Id" />
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-danger">
+                    Confirmar eliminación
+                </button>
+
+                <a href="@Url.Action("Index", "Clientes")"
+                   class="btn btn-outline-secondary">
+                    Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

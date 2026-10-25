@@ -1,0 +1,81 @@
+﻿@model Restaurante.Models.Cliente
+
+@{
+    ViewData["Title"] = "Editar cliente";
+}
+
+<div class="mb-4">
+    <h1 class="fw-bold">Editar cliente</h1>
+    <p class="text-muted">Modifica la información del cliente.</p>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white py-3">
+        <h5 class="mb-0">Datos del cliente #@Model.Id</h5>
+    </div>
+
+    <div class="card-body p-4">
+        <form method="post"
+              action="@Url.Action("Editar", "Clientes", new { id = Model.Id })">
+
+            @Html.AntiForgeryToken()
+
+            <input asp-for="Id" type="hidden" />
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger mb-3"></div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Nombre" class="form-label"></label>
+                    <input asp-for="Nombre"
+                           class="form-control"
+                           maxlength="100" />
+                    <span asp-validation-for="Nombre"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Apellido" class="form-label"></label>
+                    <input asp-for="Apellido"
+                           class="form-control"
+                           maxlength="100" />
+                    <span asp-validation-for="Apellido"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Telefono" class="form-label"></label>
+                    <input asp-for="Telefono"
+                           type="tel"
+                           class="form-control"
+                           maxlength="8"
+                           placeholder="Ejemplo: 71234567" />
+                    <span asp-validation-for="Telefono"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Correo" class="form-label"></label>
+                    <input asp-for="Correo"
+                           type="email"
+                           class="form-control"
+                           maxlength="150" />
+                    <span asp-validation-for="Correo"
+                          class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2 mt-3">
+                <button type="submit" class="btn btn-primary">
+                    Guardar cambios
+                </button>
+
+                <a href="@Url.Action("Index", "Clientes")"
+                   class="btn btn-outline-secondary">
+                    Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

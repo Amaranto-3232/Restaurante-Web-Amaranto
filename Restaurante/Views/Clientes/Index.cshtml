@@ -1,0 +1,280 @@
+﻿@model Restaurante.ViewModels.ClientesViewModel
+
+@{
+    ViewData["Title"] = "Clientes";
+}
+
+<style>
+    .clientes-dashboard {
+        color: #263247;
+    }
+
+    .clientes-dashboard .clientes-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+
+    .clientes-dashboard h1 {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 6px;
+    }
+
+    .clientes-dashboard .clientes-subtitulo {
+        color: #6b7280;
+        margin: 0;
+    }
+
+    .clientes-dashboard .clientes-total {
+        background: #eaf1ff;
+        color: #2859a5;
+        border-radius: 10px;
+        padding: 10px 16px;
+        font-weight: 600;
+    }
+
+    .clientes-dashboard .clientes-panel {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, .04);
+    }
+
+    .clientes-dashboard .clientes-buscador {
+        padding: 22px;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .clientes-dashboard .clientes-tabla {
+        margin-bottom: 0;
+        vertical-align: middle;
+    }
+
+    .clientes-dashboard .clientes-tabla th {
+        background: #f8fafc;
+        color: #64748b;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 16px 20px;
+        white-space: nowrap;
+    }
+
+    .clientes-dashboard .clientes-tabla td {
+        padding: 16px 20px;
+        border-color: #eef0f3;
+    }
+
+    .clientes-dashboard .clientes-vacio {
+        text-align: center;
+        padding: 64px 20px !important;
+        color: #6b7280;
+    }
+
+    .clientes-dashboard .clientes-vacio-icono {
+        display: block;
+        font-size: 38px;
+        margin-bottom: 12px;
+        color: #94a3b8;
+    }
+
+    .clientes-dashboard .clientes-paginacion {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+        padding: 18px 22px;
+        border-top: 1px solid #e5e7eb;
+    }
+
+    .clientes-dashboard .clientes-conteo {
+        color: #6b7280;
+        font-size: 14px;
+        margin: 0;
+    }
+</style>
+
+<div class="clientes-dashboard">
+    <div class="clientes-header">
+        <div>
+            <h1>Clientes</h1>
+            <p class="clientes-subtitulo">
+                Consulta el listado de clientes del restaurante.
+            </p>
+        </div>
+
+        <span class="clientes-total">
+            @Model.TotalClientes
+            @(string.IsNullOrEmpty(Model.Busqueda) ? "clientes" : "resultados")
+        </span>
+    </div>
+
+    <section class="clientes-panel" aria-label="Listado de clientes">
+        <div class="clientes-buscador">
+            <form method="get" action="@Url.Action("Index", "Clientes")">
+                <label for="busqueda" class="form-label fw-semibold">
+                    Buscar cliente
+                </label>
+
+                <div class="row g-2">
+                    <div class="col-12 col-md-8 col-lg-6">
+                        <input type="search"
+                               id="busqueda"
+                               name="busqueda"
+                               value="@Model.Busqueda"
+                               class="form-control"
+                               placeholder="Buscar por nombre o apellido" />
+                    </div>
+
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary">
+                            Buscar
+                        </button>
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(Model.Busqueda))
+                    {
+                        <div class="col-auto">
+                            <a href="@Url.Action("Index", "Clientes")"
+                               class="btn btn-outline-secondary">
+                                Limpiar
+                            </a>
+                        </div>
+                    }
+                </div>
+            </form>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover clientes-tabla">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Teléfono</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col" class="text-end">Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (Model.Clientes.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="6" class="clientes-vacio">
+                                <span class="clientes-vacio-icono"
+                                      aria-hidden="true">♙</span>
+
+                                @if (string.IsNullOrEmpty(Model.Busqueda))
+                                {
+                                    <strong>No hay clientes registrados</strong>
+                                }
+                                else
+                                {
+                                    <strong>
+                                        No se encontraron clientes con esa búsqueda
+                                    </strong>
+                                }
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (var cliente in Model.Clientes)
+                        {
+                            <tr>
+                                <td>@cliente.Id</td>
+                                <td>@cliente.Nombre</td>
+                                <td>@cliente.Apellido</td>
+                                <td>@cliente.Telefono</td>
+                                <td>@cliente.Correo</td>
+                                <td class="text-end text-nowrap">
+                                    @if (TempData["Mensaje"] is string mensaje)
+                                    {
+                                        <span class="text-success me-2">
+                                            @mensaje
+                                        </span>
+                                    }
+                                    <a href="@Url.Action("Editar", "Clientes", new { id = cliente.Id })"
+                                       class="btn btn-sm btn-outline-primary">
+                                        Editar
+                                    </a>
+
+                                    <a href="@Url.Action("Detalles", "Clientes", new { id = cliente.Id })"
+                                       class="btn btn-sm btn-outline-secondary">
+                                        Detalles
+                                    </a>
+
+                                    <a href="@Url.Action("Eliminar", "Clientes", new { id = cliente.Id })"
+                                       class="btn btn-sm btn-outline-danger">
+                                        Eliminar
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="clientes-paginacion">
+            <p class="clientes-conteo">
+                Mostrando @Model.Desde–@Model.Hasta
+                de @Model.TotalClientes clientes
+            </p>
+
+            <nav aria-label="Paginación de clientes"
+                 class="d-flex align-items-center gap-2">
+                @if (Model.TieneAnterior)
+                {
+                    <a class="btn btn-outline-secondary btn-sm"
+                       href="@Url.Action("Index", "Clientes", new
+                       {
+                           busqueda = Model.Busqueda,
+                           pagina = Model.PaginaActual - 1
+                       })">
+                        Anterior
+                    </a>
+                }
+                else
+                {
+                    <button type="button"
+                            class="btn btn-outline-secondary btn-sm"
+                            disabled>
+                        Anterior
+                    </button>
+                }
+
+                <span class="clientes-conteo" aria-current="page">
+                    Página @Model.PaginaActual de @Model.TotalPaginas
+                </span>
+
+                @if (Model.TieneSiguiente)
+                {
+                    <a class="btn btn-outline-secondary btn-sm"
+                       href="@Url.Action("Index", "Clientes", new
+                       {
+                           busqueda = Model.Busqueda,
+                           pagina = Model.PaginaActual + 1
+                       })">
+                        Siguiente
+                    </a>
+                }
+                else
+                {
+                    <button type="button"
+                            class="btn btn-outline-secondary btn-sm"
+                            disabled>
+                        Siguiente
+                    </button>
+                }
+            </nav>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,42 @@
+﻿@model Restaurante.Models.Cliente
+
+@{
+    ViewData["Title"] = "Detalles del cliente";
+}
+
+<div class="mb-4">
+    <h1 class="fw-bold">Detalles del cliente</h1>
+    <p class="text-muted">Información del cliente seleccionado.</p>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white py-3">
+        <h5 class="mb-0">Información personal</h5>
+    </div>
+
+    <div class="card-body p-4">
+        <dl class="row mb-0">
+            <dt class="col-sm-3">ID</dt>
+            <dd class="col-sm-9">@Model.Id</dd>
+
+            <dt class="col-sm-3">Nombre</dt>
+            <dd class="col-sm-9">@Model.Nombre</dd>
+
+            <dt class="col-sm-3">Apellido</dt>
+            <dd class="col-sm-9">@Model.Apellido</dd>
+
+            <dt class="col-sm-3">Teléfono</dt>
+            <dd class="col-sm-9">@Model.Telefono</dd>
+
+            <dt class="col-sm-3">Correo</dt>
+            <dd class="col-sm-9 text-break">@Model.Correo</dd>
+        </dl>
+    </div>
+
+    <div class="card-footer bg-white py-3">
+        <a href="@Url.Action("Index", "Clientes")"
+           class="btn btn-outline-secondary">
+            Volver a clientes
+        </a>
+    </div>
+</div>
