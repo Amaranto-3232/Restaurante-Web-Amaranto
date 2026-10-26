@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Restaurante.ViewModels.DashboardViewModel
+
+@{
     ViewData["Title"] = "Dashboard";
 }
 
@@ -21,6 +23,36 @@
         centralizado, diseñado para facilitar el trabajo diario.
     </p>
 </section>
+
+<div class="kpi-grid">
+    <div class="kpi-card">
+        <div class="kpi-label"><i class="bi bi-cash-coin"></i> Ventas de hoy</div>
+        <div class="kpi-valor">Bs @Model.VentasHoy.ToString("N2")</div>
+        <div class="kpi-detalle">@(Model.PedidosEntregadosHoy == 1 ? "1 pedido entregado" : $"{Model.PedidosEntregadosHoy} pedidos entregados")</div>
+    </div>
+
+    <a asp-controller="Pedidos" asp-action="Index" class="kpi-card">
+        <div class="kpi-label"><i class="bi bi-receipt"></i> Pedidos activos</div>
+        <div class="kpi-valor">@Model.PedidosActivos</div>
+        <div class="kpi-detalle">Pendientes o en preparación</div>
+    </a>
+
+    <a asp-controller="Mesas" asp-action="Index" class="kpi-card">
+        <div class="kpi-label"><i class="bi bi-grid-3x3-gap"></i> Mesas ocupadas</div>
+        <div class="kpi-valor">@Model.MesasOcupadas <small>/ @Model.MesasTotal</small></div>
+        <div class="kpi-detalle">@(Model.MesasTotal - Model.MesasOcupadas) disponibles</div>
+    </a>
+
+    <div class="kpi-card">
+        <div class="kpi-label"><i class="bi bi-trophy"></i> Más vendido</div>
+        <div class="kpi-valor kpi-texto">@(Model.ProductoMasVendido ?? "Sin ventas")</div>
+        <div class="kpi-detalle">
+            @(Model.ProductoMasVendido == null
+                ? $"{Model.ProductosActivos} productos activos"
+                : $"{Model.ProductoMasVendidoCantidad} unidades vendidas")
+        </div>
+    </div>
+</div>
 
 <h2 class="dashboard-section-title">Operaciones del restaurante</h2>
 
@@ -84,8 +116,49 @@
 
 </div>
 
-<div class="dashboard-note">
-    <strong>Nota:</strong> este panel contiene accesos a los módulos del sistema.
-    Los indicadores de ventas, pedidos pendientes y otros datos estadísticos
-    se pueden conectar posteriormente a la base de datos.
+<div class="card border-0 shadow-sm mt-4">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-semibold mb-0">Últimos pedidos</h5>
+            <a asp-controller="Pedidos" asp-action="Index" class="enlace-dorado small">Ver todos →</a>
+        </div>
+
+        @if (Model.UltimosPedidos.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>N.º</th>
+                            <th>Hora</th>
+                            <th>Mesa</th>
+                            <th>Cliente</th>
+                            <th>Total</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var pedido in Model.UltimosPedidos)
+                        {
+                            <tr>
+                                <td>
+                                    <a asp-controller="Pedidos" asp-action="Details" asp-route-id="@pedido.ID_Pedido"
+                                       class="enlace-dorado fw-semibold">#@pedido.ID_Pedido</a>
+                                </td>
+                                <td>@pedido.Fecha.ToString("dd/MM HH:mm")</td>
+                                <td>Mesa @pedido.Mesa?.Numero</td>
+                                <td>@(pedido.Cliente ?? "Sin cliente")</td>
+                                <td class="fw-semibold">Bs @pedido.Total.ToString("N2")</td>
+                                <td><partial name="~/Views/Pedidos/_EstadoBadge.cshtml" model="pedido.Estado" /></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <p class="text-muted mb-0">Todavía no hay pedidos registrados.</p>
+        }
+    </div>
 </div>

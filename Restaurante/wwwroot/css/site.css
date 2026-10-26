@@ -546,3 +546,83 @@ body {
     position: sticky;
     top: 20px;
 }
+
+/* INDICADORES DEL DASHBOARD */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin: 24px 0 8px;
+}
+
+.kpi-card {
+    display: block;
+    padding: 20px;
+    border-radius: 12px;
+    background: var(--olive-white);
+    border: 1px solid var(--olive-border);
+    color: var(--olive-dark);
+    text-decoration: none;
+}
+
+a.kpi-card:hover {
+    border-color: var(--olive-gold);
+    color: var(--olive-dark);
+}
+
+.kpi-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--olive-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+    .kpi-label i {
+        color: var(--olive-gold);
+        margin-right: 4px;
+    }
+
+.kpi-valor {
+    margin-top: 8px;
+    font-family: Georgia, serif;
+    font-size: 30px;
+    color: var(--olive-black);
+}
+
+    .kpi-valor small {
+        font-size: 18px;
+        color: var(--olive-muted);
+    }
+
+    .kpi-valor.kpi-texto {
+        font-size: 22px;
+        line-height: 1.35;
+    }
+
+.kpi-detalle {
+    margin-top: 4px;
+    font-size: 13px;
+    color: var(--olive-muted);
+}
+
+@media (max-width: 1200px) {
+    .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .kpi-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.enlace-dorado {
+    color: var(--olive-gold);
+    text-decoration: none;
+}
+
+    .enlace-dorado:hover {
+        color: var(--olive-dark);
+    }
