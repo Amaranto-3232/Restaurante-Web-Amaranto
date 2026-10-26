@@ -130,6 +130,14 @@ namespace Restaurante.Controllers
 
             if (producto != null)
             {
+                // Si ya se vendió en algún pedido, solo se desactiva
+                if (await _context.DetallesPedido.AnyAsync(d => d.ID_Producto == id))
+                {
+                    producto.Estado = false;
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+
                 _context.Productos.Remove(producto);
                 await _context.SaveChangesAsync();
             }

@@ -493,3 +493,56 @@ body {
     gap: 8px;
     align-items: center;
 }
+
+/* PEDIDOS */
+.estado-pedido {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+    .estado-pedido.pendiente { background: #F4E6BD; color: #6B5414; }
+    .estado-pedido.preparacion { background: #F7D8C8; color: #8A3A12; }
+    .estado-pedido.entregado { background: #D5EBDD; color: #22603C; }
+    .estado-pedido.cancelado { background: #E7E4DC; color: #6B675C; }
+
+.filtro-estados {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filtro-estado {
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--olive-border);
+    background: var(--olive-white);
+    color: var(--olive-dark);
+    font-size: 14px;
+    text-decoration: none;
+}
+
+    .filtro-estado:hover {
+        border-color: var(--olive-gold);
+        color: var(--olive-gold);
+    }
+
+    .filtro-estado.activo {
+        background: var(--olive-dark);
+        border-color: var(--olive-dark);
+        color: var(--olive-light-gold);
+    }
+
+.pedido-total {
+    font-family: Georgia, serif;
+    font-size: 26px;
+    color: var(--olive-gold);
+}
+
+.pedido-resumen {
+    position: sticky;
+    top: 20px;
+}

@@ -1,0 +1,31 @@
+@model Restaurante.Models.Pedido
+
+<div class="table-responsive">
+    <table class="table align-middle mb-0">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th class="text-center">Cantidad</th>
+                <th class="text-end">Precio unitario</th>
+                <th class="text-end">Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var d in Model.Detalles)
+            {
+                <tr>
+                    <td class="fw-semibold">@(d.Producto?.Nombre ?? "Producto eliminado")</td>
+                    <td class="text-center">@d.Cantidad</td>
+                    <td class="text-end">Bs @d.PrecioUnitario.ToString("N2")</td>
+                    <td class="text-end">Bs @d.Subtotal.ToString("N2")</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="3" class="text-end">Total</th>
+                <th class="text-end pedido-total">Bs @Model.Total.ToString("N2")</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>

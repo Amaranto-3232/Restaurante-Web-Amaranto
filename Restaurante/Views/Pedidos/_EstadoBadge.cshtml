@@ -1,0 +1,13 @@
+@model Restaurante.Models.EstadoPedido
+
+@{
+    var clase = Model switch
+    {
+        EstadoPedido.Pendiente => "pendiente",
+        EstadoPedido.EnPreparacion => "preparacion",
+        EstadoPedido.Entregado => "entregado",
+        _ => "cancelado"
+    };
+}
+
+<span class="estado-pedido @clase">@Model.NombreVisible()</span>
