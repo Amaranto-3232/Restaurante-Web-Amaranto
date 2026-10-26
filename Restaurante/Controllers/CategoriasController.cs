@@ -28,7 +28,7 @@ namespace Restaurante.Controllers
         // Mostrar formulario de creación
         public IActionResult Create()
         {
-            return View();
+            return View(new Categoria());
         }
 
         // Guardar categoría

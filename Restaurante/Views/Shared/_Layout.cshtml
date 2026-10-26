@@ -1,4 +1,8 @@
 ﻿
+@{
+    var controladorActual = ViewContext.RouteData.Values["controller"]?.ToString();
+    string Activo(string controlador) => controladorActual == controlador ? "selected" : "";
+}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,6 +11,7 @@
     <title>@ViewData["Title"] - RESTAURANTE ISI</title>
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Restaurante.styles.css" asp-append-version="true" />
 </head>
@@ -26,41 +31,41 @@
 
             <nav class="sidebar-nav">
                 <a asp-controller="Home" asp-action="Index"
-                   class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "selected" : "")">
+                   class="sidebar-link @Activo("Home")">
                     <span class="nav-icon">⌂</span> Dashboard
                 </a>
 
-                <a asp-controller="Pedidos" asp-action="Index" class="sidebar-link">
+                <a asp-controller="Pedidos" asp-action="Index" class="sidebar-link @Activo("Pedidos")">
                     <span class="nav-icon">▤</span> Pedidos
                 </a>
 
-                <a asp-controller="Productos" asp-action="Index" class="sidebar-link">
+                <a asp-controller="Productos" asp-action="Index" class="sidebar-link @Activo("Productos")">
                     <span class="nav-icon">♨</span> Productos
                 </a>
 
-                <a asp-controller="Categorias" asp-action="Index" class="sidebar-link">
+                <a asp-controller="Categorias" asp-action="Index" class="sidebar-link @Activo("Categorias")">
                     <span class="nav-icon">▦</span> Categorías
                 </a>
 
-                <a asp-controller="Mesas" asp-action="Index" class="sidebar-link">
+                <a asp-controller="Mesas" asp-action="Index" class="sidebar-link @Activo("Mesas")">
                     <span class="nav-icon">▧</span> Mesas
                 </a>
 
                 <div class="sidebar-section">GESTIÓN</div>
 
-                <a asp-controller="Clientes" asp-action="Index" class="sidebar-link">
+                <a asp-controller="Clientes" asp-action="Index" class="sidebar-link @Activo("Clientes")">
                     <span class="nav-icon">♙</span> Clientes
                 </a>
 
-                <a asp-controller="Empleados" asp-action="Index" class="sidebar-link">
+                <a asp-controller="Empleados" asp-action="Index" class="sidebar-link @Activo("Empleados")">
                     <span class="nav-icon">♧</span> Empleados
                 </a>
 
-                <a asp-controller="Facturas" asp-action="Index" class="sidebar-link">
+                <a asp-controller="Facturas" asp-action="Index" class="sidebar-link @Activo("Facturas")">
                     <span class="nav-icon">▣</span> Facturas
                 </a>
 
-                <a asp-controller="Reportes" asp-action="Index" class="sidebar-link">
+                <a asp-controller="Reportes" asp-action="Index" class="sidebar-link @Activo("Reportes")">
                     <span class="nav-icon">▥</span> Reportes
                 </a>
             </nav>

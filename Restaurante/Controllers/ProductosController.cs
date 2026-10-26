@@ -28,7 +28,7 @@ namespace Restaurante.Controllers
         public async Task<IActionResult> Create()
         {
             await CargarCategorias();
-            return View();
+            return View(new Producto());
         }
 
         [HttpPost]
