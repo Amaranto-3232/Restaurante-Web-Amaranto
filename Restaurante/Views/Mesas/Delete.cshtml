@@ -1,0 +1,64 @@
+@model Restaurante.Models.Mesa
+
+@{
+    ViewData["Title"] = "Eliminar mesa";
+    var tienePedidos = (bool)(ViewBag.TienePedidos ?? false);
+}
+
+<div class="container-fluid">
+
+    <div class="mb-4">
+        <a asp-action="Index" class="text-decoration-none text-muted">
+            <i class="bi bi-arrow-left me-1"></i>
+            Volver a mesas
+        </a>
+
+        <h1 class="fw-bold mt-3 mb-1">Eliminar mesa</h1>
+        <p class="text-muted mb-0">Revisa los datos antes de eliminar.</p>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+
+            <dl class="row mb-0">
+                <dt class="col-sm-3">Número</dt>
+                <dd class="col-sm-9">Mesa @Model.Numero</dd>
+
+                <dt class="col-sm-3">Capacidad</dt>
+                <dd class="col-sm-9">@Model.Capacidad personas</dd>
+
+                <dt class="col-sm-3">Ubicación</dt>
+                <dd class="col-sm-9">@(Model.Ubicacion ?? "Sin ubicación")</dd>
+
+                <dt class="col-sm-3">Estado</dt>
+                <dd class="col-sm-9">@Model.Estado</dd>
+            </dl>
+
+            <hr class="my-4" />
+
+            @if (tienePedidos)
+            {
+                <div class="alert alert-warning mb-3">
+                    <i class="bi bi-exclamation-triangle me-1"></i>
+                    Esta mesa tiene pedidos registrados, por eso no se puede eliminar.
+                </div>
+                <div class="d-flex justify-content-end">
+                    <a asp-action="Index" class="btn btn-outline-secondary">Volver</a>
+                </div>
+            }
+            else
+            {
+                <form asp-action="Delete" method="post" class="d-flex justify-content-end gap-2">
+                    <input type="hidden" asp-for="ID_Mesa" />
+                    <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash me-1"></i>
+                        Eliminar mesa
+                    </button>
+                </form>
+            }
+
+        </div>
+    </div>
+
+</div>

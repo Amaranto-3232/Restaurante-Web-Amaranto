@@ -424,3 +424,72 @@ body {
         padding: 22px;
     }
 }
+
+/* MESAS */
+.mesa-resumen {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.mesa-chip {
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: var(--olive-white);
+    border: 1px solid var(--olive-border);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+    .mesa-chip i {
+        font-size: 9px;
+        vertical-align: middle;
+        margin-right: 4px;
+    }
+
+    .mesa-chip.libre i { color: #2E7D4F; }
+    .mesa-chip.ocupada i { color: #B5361F; }
+    .mesa-chip.reservada i { color: var(--olive-gold); }
+
+.mesas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 16px;
+}
+
+.mesa-card {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 18px;
+    border-radius: 12px;
+    background: var(--olive-white);
+    border: 1px solid var(--olive-border);
+    border-top: 5px solid var(--estado-color);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+    .mesa-card.libre { --estado-color: #2E7D4F; }
+    .mesa-card.ocupada { --estado-color: #B5361F; }
+    .mesa-card.reservada { --estado-color: var(--olive-gold); }
+
+.mesa-numero {
+    font-family: Georgia, serif;
+    font-size: 22px;
+    color: var(--olive-black);
+}
+
+.mesa-estado {
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--estado-color);
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.mesa-acciones {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}

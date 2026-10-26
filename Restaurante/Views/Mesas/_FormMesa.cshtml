@@ -1,0 +1,30 @@
+@model Restaurante.Models.Mesa
+
+<div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+<div class="row g-3">
+    <div class="col-md-4">
+        <label asp-for="Numero" class="form-label fw-semibold"></label>
+        <input asp-for="Numero" class="form-control" placeholder="Ej. 1" />
+        <span asp-validation-for="Numero" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-4">
+        <label asp-for="Capacidad" class="form-label fw-semibold"></label>
+        <input asp-for="Capacidad" class="form-control" />
+        <span asp-validation-for="Capacidad" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-4">
+        <label asp-for="Estado" class="form-label fw-semibold"></label>
+        <select asp-for="Estado" class="form-select"
+                asp-items="Html.GetEnumSelectList<EstadoMesa>()"></select>
+    </div>
+
+    <div class="col-12">
+        <label asp-for="Ubicacion" class="form-label fw-semibold"></label>
+        <input asp-for="Ubicacion" class="form-control"
+               placeholder="Ej. Terraza, Salón principal, Ventana" />
+        <span asp-validation-for="Ubicacion" class="text-danger"></span>
+    </div>
+</div>
